@@ -1,6 +1,6 @@
 package com.example.labtooljava.Grade;
 
-import com.example.labtooljava.PersonLab.PersonLab;
+import com.example.labtooljava.Demo.Demo;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,17 +20,17 @@ public class Grade implements Serializable {
     private String assessmentName;
 
     @OneToOne
-    @JoinColumn(name = "lab_user_id_fk", referencedColumnName = "lab_user_id")
-    private PersonLab personlab;
+    @JoinColumn(name = "demo_id", referencedColumnName = "demo_id")
+    private Demo demo;
 
     protected Grade() {}
 
-    public Grade(int gradeId, String gradeComment, float grade, String assessmentName, PersonLab personlab) {
+    public Grade(int gradeId, String gradeComment, float grade, String assessmentName, Demo demo) {
         this.gradeId = gradeId;
         this.gradeComment = gradeComment;
         this.grade = grade;
         this.assessmentName = assessmentName;
-        this.personlab = personlab;
+        this.demo = demo;
     }
 
     public void setGrade_id(int gradeId) {
@@ -59,11 +59,11 @@ public class Grade implements Serializable {
 
     public String getAssessmentName() { return assessmentName; }
 
-    public void setPersonLab(PersonLab personLab) {
-        this.personlab = personLab;
+    public void setDemo(Demo demo) {
+        this.demo = demo;
     }
 
-    public PersonLab getPersonLab() {
-        return personlab;
+    public Demo getDemo() {
+        return demo;
     }
 }

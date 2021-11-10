@@ -1,11 +1,8 @@
 package com.example.labtooljava.Person;
 
-import com.example.labtooljava.PersonLab.PersonLab;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.stereotype.Component;
+import com.example.labtooljava.Demo.Demo;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -26,8 +23,8 @@ public class Person implements Serializable {
     @Column(name = "user_password")
     private String password;
 
-//    @OneToMany(targetEntity = PersonLab.class, fetch = FetchType.EAGER,mappedBy="person",cascade = CascadeType.ALL)
-//    private Set<PersonLab> personLabs;
+//    @OneToMany(targetEntity = Demo.class, fetch = FetchType.EAGER,mappedBy="person",cascade = CascadeType.ALL)
+//    private Set<Demo> personLabs;
 
     protected Person() {}
 
@@ -85,11 +82,11 @@ public class Person implements Serializable {
 
     public String getPassword() { return password; }
 //
-//    public Set<PersonLab> getPersonLab() {
+//    public Set<Demo> getPersonLab() {
 //        return personLabs;
 //    }
 //
-//    public void setPersonLab(Set<PersonLab> personLabs) {
+//    public void setPersonLab(Set<Demo> personLabs) {
 //        this.personLabs = personLabs;
 //    }
 

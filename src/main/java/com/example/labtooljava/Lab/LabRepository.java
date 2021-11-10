@@ -14,4 +14,6 @@ public interface LabRepository extends JpaRepository<Lab, Integer> {
 
     Lab findByLabId(int labId);
     //List<Lab> findAllByP
+
+
 }

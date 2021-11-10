@@ -1,11 +1,10 @@
 package com.example.labtooljava.Lab;
 
 import com.example.labtooljava.LabClass.LabClass;
-import com.example.labtooljava.PersonLab.PersonLab;
+import com.example.labtooljava.Demo.Demo;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "lab")
@@ -25,7 +24,7 @@ public class Lab implements Serializable {
     private int endTime;
 
 //    @OneToMany(fetch = FetchType.EAGER,mappedBy="lab",cascade = CascadeType.ALL)
-//    private Set<PersonLab> personlabs;
+//    private Set<Demo> personlabs;
 
 
     @ManyToOne
@@ -76,11 +75,11 @@ public class Lab implements Serializable {
         this.labId = labId;
     }
 //
-//    public Set<PersonLab> getpersonlabs() {
+//    public Set<Demo> getpersonlabs() {
 //        return personlabs;
 //    }
 //
-//    public void setpersonLabs(Set<PersonLab> personlabs) {
+//    public void setpersonLabs(Set<Demo> personlabs) {
 //        this.personlabs = personlabs;
 //    }
 

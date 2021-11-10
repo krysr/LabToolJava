@@ -1,12 +1,9 @@
 package com.example.labtooljava.LabClass;
 
-import com.example.labtooljava.Lab.Lab;
-import com.example.labtooljava.PersonLab.PersonLab;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.labtooljava.Demo.Demo;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "labclass")
