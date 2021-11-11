@@ -6,7 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/grade")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GradeController {
 
     private final DemoRepository demoRepo;
@@ -18,21 +18,11 @@ public class GradeController {
         this.gradeRepo = gradeRepo;
     }
 
-    @PostMapping("/")
-    public void setGrade(@RequestBody Grade grade, @RequestHeader HttpHeaders req) {
+    @PostMapping("/grade/student/")
+    public Grade setGrade(@RequestBody Grade grade, @RequestHeader HttpHeaders req) {
 
-        //Demo demo = new Demo();
-        Demo demo = this.demoRepo.findDemoByDemoId(grade.getDemo().getdemoId());
-        Grade newGrade = new Grade();
-        newGrade.setGrade(grade.getGrade());
-        newGrade.setDemo(demo);
-        newGrade.setAssessmentName(grade.getAssessmentName());
-        newGrade.setgradeComment(grade.getgradeComment());
-
-        this.gradeRepo.save(newGrade);
-
-
-
+        this.gradeRepo.save(grade);
+        return this.gradeRepo.findAllByDemo_DemoId(grade.getDemo().getdemoId()).get(0);
 
     }
 }

@@ -4,6 +4,7 @@ import com.example.labtooljava.Demo.Demo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Grade implements Serializable {
@@ -16,8 +17,8 @@ public class Grade implements Serializable {
     private String gradeComment;
     @Column(name = "grade")
     private float grade;
-    @Column(name = "assessment_name")
-    private String assessmentName;
+    @Column(name = "grade_date", columnDefinition = "DATE")
+    private Date gradeDate;
 
     @OneToOne
     @JoinColumn(name = "demo_id", referencedColumnName = "demo_id")
@@ -25,11 +26,11 @@ public class Grade implements Serializable {
 
     protected Grade() {}
 
-    public Grade(int gradeId, String gradeComment, float grade, String assessmentName, Demo demo) {
+    public Grade(int gradeId, String gradeComment, float grade, Date gradeDate, Demo demo) {
         this.gradeId = gradeId;
         this.gradeComment = gradeComment;
         this.grade = grade;
-        this.assessmentName = assessmentName;
+        this.gradeDate = gradeDate;
         this.demo = demo;
     }
 
@@ -55,9 +56,9 @@ public class Grade implements Serializable {
         return grade;
     }
 
-    public void setAssessmentName(String assessmentName) { this.assessmentName = assessmentName; }
+    public void setGradeDate(Date gradeDate) { this.gradeDate = gradeDate; }
 
-    public String getAssessmentName() { return assessmentName; }
+    public Date getGradeDate() { return gradeDate; }
 
     public void setDemo(Demo demo) {
         this.demo = demo;

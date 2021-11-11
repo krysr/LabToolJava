@@ -1,5 +1,6 @@
 package com.example.labtooljava;
 
+import com.example.labtooljava.Grade.GradeRepository;
 import com.example.labtooljava.Lab.LabRepository;
 import com.example.labtooljava.Person.PersonService;
 import com.example.labtooljava.Demo.DemoRepository;
@@ -38,6 +39,9 @@ public class LabToolJavaApplication extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DemoRepository demoRepository;
+
+    @Autowired
+    GradeRepository gradeRepository;
 //
 //    @Autowired
 //    PersonLabRepository personLabRepository;
@@ -77,7 +81,9 @@ public class LabToolJavaApplication extends WebSecurityConfigurerAdapter {
         http
                 .logout().and()
                 .authorizeRequests()
-                .antMatchers("/index.html", "/student", "/login", "/", "/student/*", "/lab", "/lab/*", "/lab/demonstrate/*", "/lab/demonstrate/end/*").permitAll()
+                .antMatchers("/index.html", "/student", "/login", "/", "/student/*",
+                        "/lab", "/lab/*", "/lab/demonstrate/*", "/lab/demonstrate/end/*", "/grade", "/grade/student",
+               "/grade/student/*" ).permitAll()
                 .anyRequest().authenticated();
                 //.and().formLogin().loginPage("/").permitAll();
         http.csrf().disable();
