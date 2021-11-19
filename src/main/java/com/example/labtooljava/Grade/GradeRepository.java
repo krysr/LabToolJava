@@ -10,4 +10,6 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 
     List<Grade> findAllByDemo_DemoId(int demoId);
 
+    Grade findByDemo_Person_DsUsernameAndDemo_Lab_LabId(String username, int labId);
+
 }

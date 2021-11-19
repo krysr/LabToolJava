@@ -13,6 +13,10 @@ public interface LabRepository extends JpaRepository<Lab, Integer> {
 //    List<Lab> findallByLabId(int labId);
 
     Lab findByLabId(int labId);
+
+//    Lab findByLabDayAndAndStartTimeAndLabClass_ClassId(String day, int startTime, String classId);
+
+    Lab findByLabClass_ClassIdAndLabDayAndStartTime(String classId, String day, int startTime);
     //List<Lab> findAllByP
 
 

@@ -13,7 +13,7 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
      //List<Lab> findAllBy
         //List<Demo> findAll();
 
-//    List<Demo> findAll();
+    List<Demo> findAll();
 
     List<Demo> findAllByPerson_DsUsername(String username);
 
@@ -21,7 +21,9 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
 //    List<Demo> findAllByDemo(boolean demo);
 
-    List<Demo> findAllByLab_LabIdAndDemoOrderByPositionAsc(int id, boolean demo);
+    List<Demo> findAllByLab_LabIdAndDemoOrderByPositionAsc(int id, String demo);
+
+    List<Demo> findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(int id, String demo, String demo1);
 
     Demo findDemoByDemoId(int demoId);
 
@@ -39,7 +41,7 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
     @Modifying
     @Transactional
     @Query(value = "update Demo pl set pl.demo = ?1 where pl.lab.labId = ?2 and pl.person.dsUsername = ?3")
-    void setDemo(boolean demo, int lab_id_fk, String person_id_fk);
+    void setDemo(String demo, int lab_id_fk, String person_id_fk);
 
     @Query(value = "select max(pl.position) from Demo pl")
     int getMaxPos();

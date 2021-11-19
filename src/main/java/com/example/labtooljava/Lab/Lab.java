@@ -29,17 +29,17 @@ public class Lab implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "class_id_fk", referencedColumnName = "class_id")
-    private LabClass labclass;
+    private LabClass labClass;
 
     protected Lab() {}
 
-    public Lab(int labId, String labDay, int startTime, int endTime, LabClass labclass) {
+    public Lab(int labId, String labDay, int startTime, int endTime, LabClass labClass) {
         this.labId = labId;
         this.labDay = labDay;
         this.startTime = startTime;
         this.endTime = endTime;
         //this.personlabs = personlabs;
-        this.labclass = labclass;
+        this.labClass = labClass;
         //this.classId = classId;
     }
 
@@ -84,10 +84,10 @@ public class Lab implements Serializable {
 //    }
 
     public LabClass getLabClass() {
-        return labclass;
+        return labClass;
     }
 
-    public void setLabClass(LabClass labclass) {
-        this.labclass = labclass;
+    public void setLabClass(LabClass labClass) {
+        this.labClass = labClass;
     }
 }

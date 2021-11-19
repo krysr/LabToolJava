@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Demo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "demo_id", nullable = false, updatable = false)
     private int demoId;
 //    @Column(name = "lab_id_fk")
@@ -21,7 +21,7 @@ public class Demo implements Serializable {
 //    private String username;
 
     @Column(name = "demo")
-    private boolean demo;
+    private String demo;
 
     @Column(name = "position")
     private int position;
@@ -43,8 +43,8 @@ public class Demo implements Serializable {
 
     protected Demo() {}
 
-    public Demo(int demoId, Lab lab, Person person, boolean demo, int position, boolean instructor) {
-        this.demoId = demoId;
+    public Demo(Lab lab, Person person, String demo, int position, boolean instructor) {
+       // this.demoId = demoId;
         this.lab = lab;
         this.person = person;
         this.demo = demo;
@@ -89,11 +89,11 @@ public class Demo implements Serializable {
         this.lab = lab;
     }
 
-    public boolean isDemo() {
+    public String isDemo() {
         return demo;
     }
 
-    public void setDemo(boolean demo) {
+    public void setDemo(String demo) {
         this.demo = demo;
     }
 

@@ -2,11 +2,12 @@ package com.example.labtooljava.Lab;
 
 import com.example.labtooljava.Demo.Demo;
 import com.example.labtooljava.Demo.DemoRepository;
+import com.example.labtooljava.Person.Person;
+import com.example.labtooljava.Person.PersonRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,9 +23,12 @@ public class LabController {
 
     private final LabRepository labRepository;
 
-    public LabController(LabRepository labRepository, DemoRepository demoRepo) {
+    private final PersonRepository personRepository;
+
+    public LabController(LabRepository labRepository, DemoRepository demoRepo, PersonRepository personRepository) {
         this.labRepository = labRepository;
         this.demoRepo = demoRepo;
+        this.personRepository = personRepository;
     }
 
 //    @GetMapping("/lab/{email}")
@@ -54,7 +58,7 @@ public class LabController {
         int pos;
         boolean alreadySet = demoRepo.getDemo(lab.getLabId(), username);
         if(!alreadySet) {
-            demoRepo.setDemo(true, lab.getLabId(),username);
+            demoRepo.setDemo("yes", lab.getLabId(),username);
             if(demoRepo.getMaxPos() > 0) {
                 pos = demoRepo.getMaxPos() + 1;
                 demoRepo.setPos(lab.getLabId(),username, pos);
@@ -63,21 +67,65 @@ public class LabController {
             }
             demoRepo.setPos(lab.getLabId(),username, pos);
         }
-        return demoRepo.findAllByLab_LabIdAndDemoOrderByPositionAsc(lab.getLabId(), true);
+        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(lab.getLabId(), "yes", "live");
     }
+
+//    @PostMapping("/lab/demonstrate/{username}")
+//    //@ResponseBody
+//    public List<Demo> addStudentDemo(@RequestBody Demo demo, @PathVariable() String username, @RequestHeader HttpHeaders req) {
+//        int pos;
+//        boolean alreadySet = demoRepo.getDemo(demo.getLab().getLabId(), username);
+//        if(!alreadySet) {
+//            demoRepo.setDemo("yes", demo.getLab().getLabId(),username);
+//            if(demoRepo.getMaxPos() > 0) {
+//                pos = demoRepo.getMaxPos() + 1;
+//                demoRepo.setPos(demo.getLab().getLabId(),username, pos);
+//            } else {
+//                pos = 1;
+//            }
+//            demoRepo.setPos(demo.getLab().getLabId(),username, pos);
+//        }
+//        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(demo.getLab().getLabId(), "yes", "live");
+//    }
 
     @PostMapping("/lab/demonstrate/")
     @ResponseBody
     public List<Demo> getQueue(@RequestBody Lab lab, @RequestHeader HttpHeaders req) {
-        return demoRepo.findAllByLab_LabIdAndDemoOrderByPositionAsc(lab.getLabId(), true);
+        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(lab.getLabId(), "yes", "live");
     }
 
     @PostMapping("/lab/demonstrate/end/{username}")
     //@ResponseBody
     public List<Demo> removeStudentDemo(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
-        demoRepo.setDemo(false, lab.getLabId(),username);
-        return demoRepo.findAllByLab_LabIdAndDemoOrderByPositionAsc(lab.getLabId(), true);
+        demoRepo.setDemo("no", lab.getLabId(),username);
+        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(lab.getLabId(), "yes", "live");
 
+    }
+
+    @PostMapping("/lab/list/{role}")
+    @ResponseBody
+    public List<Demo> addStudentLab(@RequestBody Object result, @PathVariable() String role, @RequestHeader HttpHeaders req) {
+        System.out.println(result);
+       boolean instructor = !role.equals("student");
+        String email;
+        String username;
+        String day;
+        String classId;
+        int startTime;
+        int endTime;
+        int size = ((ArrayList) result).size();
+        for (int i = 0; i<size; i++) {
+            email = ((LinkedHashMap) ((ArrayList) result).get(i)).get("email").toString().toLowerCase();
+            day = ((LinkedHashMap) ((ArrayList) result).get(i)).get("day").toString().toLowerCase();
+            classId = ((LinkedHashMap) ((ArrayList) result).get(i)).get("class_code").toString().toUpperCase();
+            startTime = (int) ((LinkedHashMap) ((ArrayList) result).get(i)).get("start_time");
+            endTime = (int) ((LinkedHashMap) ((ArrayList) result).get(i)).get("end_time");
+            Lab lab = this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(classId, day, startTime);
+            Person p = this.personRepository.findByEmail(email);
+            Demo d = new Demo(lab, p, "no", 0, instructor);
+            this.demoRepo.save(d);
+        }
+        return this.demoRepo.findAll();
     }
 
 }

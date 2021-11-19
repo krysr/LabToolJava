@@ -22,7 +22,13 @@ public class GradeController {
     public Grade setGrade(@RequestBody Grade grade, @RequestHeader HttpHeaders req) {
 
         this.gradeRepo.save(grade);
+        this.demoRepo.setDemo("done", grade.getDemo().getLab().getLabId(), grade.getDemo().getPerson().getDsUsername());
+        this.demoRepo.setPos(grade.getDemo().getLab().getLabId(), grade.getDemo().getPerson().getDsUsername(), 0);
         return this.gradeRepo.findAllByDemo_DemoId(grade.getDemo().getdemoId()).get(0);
+    }
 
+    @GetMapping("/grade/student/{username}/{labid}")
+    public Grade getGrade(@PathVariable() String username, @PathVariable() int labid, @RequestHeader HttpHeaders req) {
+        return this.gradeRepo.findByDemo_Person_DsUsernameAndDemo_Lab_LabId(username, labid);
     }
 }

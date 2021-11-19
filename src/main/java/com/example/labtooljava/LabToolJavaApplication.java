@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -42,13 +44,19 @@ public class LabToolJavaApplication extends WebSecurityConfigurerAdapter {
 
     @Autowired
     GradeRepository gradeRepository;
-//
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    //
 //    @Autowired
 //    PersonLabRepository personLabRepository;
 
     private static final Logger log = LoggerFactory.getLogger(LabToolJavaApplication.class);
 
     public static void main(String[] args) {
+//        LabToolJavaApplication lb = new LabToolJavaApplication();
+//        lb.encryptPw();
         System.out.println(log); SpringApplication.run(LabToolJavaApplication.class, args);
     }
 
@@ -81,9 +89,10 @@ public class LabToolJavaApplication extends WebSecurityConfigurerAdapter {
         http
                 .logout().and()
                 .authorizeRequests()
-                .antMatchers("/index.html", "/student", "/login", "/", "/student/*",
-                        "/lab", "/lab/*", "/lab/demonstrate/*", "/lab/demonstrate/end/*", "/grade", "/grade/student",
-               "/grade/student/*" ).permitAll()
+//                .antMatchers("/index.html", "/student", "/login", "/", "/student/*",
+//                        "/lab", "/lab/*", "/lab/demonstrate/*", "/lab/demonstrate/end/*", "/grade", "/grade/student",
+//               "/grade/student/*", "grade/student/*", "grade/student/{username}/*", "grade/student/{username}/{labid}" ).permitAll()
+                .antMatchers("/**" ).permitAll()
                 .anyRequest().authenticated();
                 //.and().formLogin().loginPage("/").permitAll();
         http.csrf().disable();
@@ -93,6 +102,16 @@ public class LabToolJavaApplication extends WebSecurityConfigurerAdapter {
            //     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         // @formatter:on
     }
+
+//    @Bean
+//    public PasswordEncoder encoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
+//    public void encryptPw() {
+////        System.out.println(passwordEncoder.encode("student4"));
+//        System.out.println(new BCryptPasswordEncoder().encode("student7"));
+//    }
 
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
