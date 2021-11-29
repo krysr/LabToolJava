@@ -22,6 +22,8 @@ public class Lab implements Serializable {
     private int startTime;
     @Column(name = "end_time")
     private int endTime;
+    @Column(name = "room")
+    private String room;
 
 //    @OneToMany(fetch = FetchType.EAGER,mappedBy="lab",cascade = CascadeType.ALL)
 //    private Set<Demo> personlabs;
@@ -33,14 +35,13 @@ public class Lab implements Serializable {
 
     protected Lab() {}
 
-    public Lab(int labId, String labDay, int startTime, int endTime, LabClass labClass) {
+    public Lab(int labId, String labDay, int startTime, int endTime, LabClass labClass, String room) {
         this.labId = labId;
         this.labDay = labDay;
         this.startTime = startTime;
         this.endTime = endTime;
-        //this.personlabs = personlabs;
         this.labClass = labClass;
-        //this.classId = classId;
+        this.room = room;
     }
 
     public void setlabDay(String labDay) {
@@ -74,14 +75,6 @@ public class Lab implements Serializable {
     public void setLabId(int labId) {
         this.labId = labId;
     }
-//
-//    public Set<Demo> getpersonlabs() {
-//        return personlabs;
-//    }
-//
-//    public void setpersonLabs(Set<Demo> personlabs) {
-//        this.personlabs = personlabs;
-//    }
 
     public LabClass getLabClass() {
         return labClass;
@@ -89,5 +82,13 @@ public class Lab implements Serializable {
 
     public void setLabClass(LabClass labClass) {
         this.labClass = labClass;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public String getRoom() {
+        return room;
     }
 }

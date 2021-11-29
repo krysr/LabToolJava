@@ -44,15 +44,11 @@ public class Demo implements Serializable {
     protected Demo() {}
 
     public Demo(Lab lab, Person person, String demo, int position, boolean instructor) {
-       // this.demoId = demoId;
         this.lab = lab;
         this.person = person;
         this.demo = demo;
         this.position = position;
         this.instructor = instructor;
-       // this.grade = grade;
-//        this.labId = labId;
-//        this.username = username;
     }
 
 
@@ -89,7 +85,7 @@ public class Demo implements Serializable {
         this.lab = lab;
     }
 
-    public String isDemo() {
+    public String getDemo() {
         return demo;
     }
 

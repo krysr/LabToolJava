@@ -23,7 +23,7 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
     List<Demo> findAllByLab_LabIdAndDemoOrderByPositionAsc(int id, String demo);
 
-    List<Demo> findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(int id, String demo, String demo1);
+    List<Demo> findAllByLab_LabIdAndDemoInOrderByPositionAsc(int id, List<String> demo);
 
     Demo findDemoByDemoId(int demoId);
 

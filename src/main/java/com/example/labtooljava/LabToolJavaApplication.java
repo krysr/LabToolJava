@@ -26,7 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import java.util.Arrays;
 
 //(scanBasePackages = { "Person" })
-@SpringBootApplication(scanBasePackages = {"com.example.labtooljava.Lab", "com.example.labtooljava.Person", "com.example.labtooljava.Demo", "com.example.labtooljava.LabClass", "com.example.labtooljava.Grade"})
+@SpringBootApplication(scanBasePackages = {"com.example.labtooljava.Lab", "com.example.labtooljava.Person", "com.example.labtooljava.Demo", "com.example.labtooljava.LabClass", "com.example.labtooljava.Grade", "com.example.labtooljava.Statistic"})
 //@ComponentScan(basePackages = { "Person" }))
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")

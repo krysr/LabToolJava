@@ -67,7 +67,7 @@ public class LabController {
             }
             demoRepo.setPos(lab.getLabId(),username, pos);
         }
-        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(lab.getLabId(), "yes", "live");
+        return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live"));
     }
 
 //    @PostMapping("/lab/demonstrate/{username}")
@@ -91,14 +91,14 @@ public class LabController {
     @PostMapping("/lab/demonstrate/")
     @ResponseBody
     public List<Demo> getQueue(@RequestBody Lab lab, @RequestHeader HttpHeaders req) {
-        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(lab.getLabId(), "yes", "live");
+        return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live"));
     }
 
     @PostMapping("/lab/demonstrate/end/{username}")
     //@ResponseBody
-    public List<Demo> removeStudentDemo(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
-        demoRepo.setDemo("no", lab.getLabId(),username);
-        return demoRepo.findAllByLab_LabIdAndDemoAndDemoOrderByPositionAsc(lab.getLabId(), "yes", "live");
+    public List<Demo> removeStudentDemo(@RequestBody Demo demo, @PathVariable() String username, @RequestHeader HttpHeaders req) {
+        demoRepo.setDemo(demo.getDemo(), demo.getLab().getLabId(),demo.getPerson().getDsUsername());
+        return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(demo.getLab().getLabId(), Arrays.asList("yes", "live"));
 
     }
 
