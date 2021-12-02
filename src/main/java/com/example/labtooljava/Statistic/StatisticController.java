@@ -6,6 +6,7 @@ import com.example.labtooljava.Person.PersonRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,9 +28,19 @@ public class StatisticController {
         this.statRepository = statRepository;
     }
 
-    @PostMapping("/stats/")
-    public List<Statistic> saveStats(@RequestBody Statistic stat, @RequestHeader HttpHeaders req) {
-        this.statRepository.save(stat);
+    @PostMapping("/stats/{role}")
+    public List<Statistic> saveStats(@RequestBody Statistic stat, @PathVariable() String role, @RequestHeader HttpHeaders req) {
+        if (role.equals("student")) {
+            this.statRepository.save(stat);
+        } else {
+            this.statRepository.updateStats(stat.getDemoStartTime(), stat.getDemoEndTime(), stat.getWaitingTime(), stat.getDemo().getdemoId(), stat.getDate(), new Date());
+        }
         return this.statRepository.findAllByDemo(stat.getDemo());
     }
+
+//    @PostMapping("/stats/")
+//    public List<Statistic> updateStat(@RequestBody Statistic stat, @RequestHeader HttpHeaders req) {
+//        this.statRepository.updateStats(stat.getDemoStartTime(), stat.getDemoEndTime(), stat.getWaitingTime(), stat.getDemo(), stat.getDate());
+//        return this.statRepository.findAllByDemo(stat.getDemo());
+//    }
 }

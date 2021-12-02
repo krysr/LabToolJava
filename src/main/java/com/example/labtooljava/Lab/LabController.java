@@ -91,7 +91,7 @@ public class LabController {
     @PostMapping("/lab/demonstrate/")
     @ResponseBody
     public List<Demo> getQueue(@RequestBody Lab lab, @RequestHeader HttpHeaders req) {
-        return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live"));
+        return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live", "done"));
     }
 
     @PostMapping("/lab/demonstrate/end/{username}")
