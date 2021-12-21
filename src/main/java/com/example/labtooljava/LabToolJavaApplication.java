@@ -2,6 +2,7 @@ package com.example.labtooljava;
 
 import com.example.labtooljava.Grade.GradeRepository;
 import com.example.labtooljava.Lab.LabRepository;
+import com.example.labtooljava.LabClass.LabClassRepository;
 import com.example.labtooljava.Person.PersonService;
 import com.example.labtooljava.Demo.DemoRepository;
 import org.slf4j.Logger;
@@ -44,6 +45,9 @@ public class LabToolJavaApplication extends WebSecurityConfigurerAdapter {
 
     @Autowired
     GradeRepository gradeRepository;
+
+    @Autowired
+    LabClassRepository labClassRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;

@@ -14,6 +14,8 @@ public interface StatisticRepository extends JpaRepository<Statistic, Integer> {
 
     List<Statistic> findAllByDemo(Demo demo);
 
+//    List<Statistic> findAll();
+
     @Modifying
     @Transactional
     @Query(value = "update Statistic st set st.demoStartTime = ?1, st.demoEndTime = ?2, st.waitingTime = ?3 where st.demo.demoId = ?4 and st.date >= ?5 and st.date <= ?6")

@@ -38,6 +38,12 @@ public class StatisticController {
         return this.statRepository.findAllByDemo(stat.getDemo());
     }
 
+    @GetMapping("/stats/")
+    public List<Statistic> getStats() {
+
+        return this.statRepository.findAll();
+    }
+
 //    @PostMapping("/stats/")
 //    public List<Statistic> updateStat(@RequestBody Statistic stat, @RequestHeader HttpHeaders req) {
 //        this.statRepository.updateStats(stat.getDemoStartTime(), stat.getDemoEndTime(), stat.getWaitingTime(), stat.getDemo(), stat.getDate());

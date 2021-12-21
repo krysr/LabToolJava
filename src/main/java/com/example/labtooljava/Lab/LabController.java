@@ -95,37 +95,62 @@ public class LabController {
     }
 
     @PostMapping("/lab/demonstrate/end/{username}")
-    //@ResponseBody
     public List<Demo> removeStudentDemo(@RequestBody Demo demo, @PathVariable() String username, @RequestHeader HttpHeaders req) {
         demoRepo.setDemo(demo.getDemo(), demo.getLab().getLabId(),demo.getPerson().getDsUsername());
         return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(demo.getLab().getLabId(), Arrays.asList("yes", "live"));
 
     }
 
-    @PostMapping("/lab/list/{role}")
+    @PostMapping("/lab/list/{lab}")
     @ResponseBody
-    public List<Demo> addStudentLab(@RequestBody Object result, @PathVariable() String role, @RequestHeader HttpHeaders req) {
-        System.out.println(result);
-       boolean instructor = !role.equals("student");
+    public List<Demo> addStudentLab(@RequestBody Object result, @PathVariable() Lab lab, @RequestHeader HttpHeaders req) {
+//        System.out.println(result);
+////       boolean instructor = !role.equals("student");
+//        String email;
+//        String username;
+//        String day;
+//        String classId;
+//        int startTime;
+//        int endTime;
+//        int size = ((ArrayList) result).size();
+//        for (int i = 0; i<size; i++) {
+//            email = ((LinkedHashMap) ((ArrayList) result).get(i)).get("email").toString().toLowerCase();
+//            day = ((LinkedHashMap) ((ArrayList) result).get(i)).get("day").toString().toLowerCase();
+//            classId = ((LinkedHashMap) ((ArrayList) result).get(i)).get("class_code").toString().toUpperCase();
+//            startTime = (int) ((LinkedHashMap) ((ArrayList) result).get(i)).get("start_time");
+//            endTime = (int) ((LinkedHashMap) ((ArrayList) result).get(i)).get("end_time");
+//            Lab lab = this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(classId, day, startTime);
+//            Person p = this.personRepository.findByEmail(email);
+//            Demo d = new Demo(lab, p, "no", 0, false);
+//            this.demoRepo.save(d);
+//        }
         String email;
-        String username;
-        String day;
-        String classId;
-        int startTime;
-        int endTime;
         int size = ((ArrayList) result).size();
         for (int i = 0; i<size; i++) {
             email = ((LinkedHashMap) ((ArrayList) result).get(i)).get("email").toString().toLowerCase();
-            day = ((LinkedHashMap) ((ArrayList) result).get(i)).get("day").toString().toLowerCase();
-            classId = ((LinkedHashMap) ((ArrayList) result).get(i)).get("class_code").toString().toUpperCase();
-            startTime = (int) ((LinkedHashMap) ((ArrayList) result).get(i)).get("start_time");
-            endTime = (int) ((LinkedHashMap) ((ArrayList) result).get(i)).get("end_time");
-            Lab lab = this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(classId, day, startTime);
             Person p = this.personRepository.findByEmail(email);
-            Demo d = new Demo(lab, p, "no", 0, instructor);
+            Demo d = new Demo(lab, p, "no", 0, false);
             this.demoRepo.save(d);
         }
         return this.demoRepo.findAll();
+    }
+
+    @PostMapping("/lab/assign/{email}")
+    public void assignToLab(@RequestBody Lab lab, @PathVariable() String email, @RequestHeader HttpHeaders req) {
+        boolean isInstructor = !this.personRepository.findByEmail(email).getRole().equalsIgnoreCase("student");
+        Demo d = new Demo(lab, this.personRepository.findByEmail(email), "no", 0, isInstructor);
+        if (this.demoRepo.findAllByPerson_EmailAndLab_LabId(email, lab.getLabId()) == null) {
+            this.demoRepo.save(d);
+        }
+    }
+
+    @PostMapping("/lab/add/{username}")
+    public void addNewLab(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
+        if(this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(lab.getLabClass().getClassId(), lab.getlabDay(), lab.getstartTime()) == null) {
+            this.labRepository.save(lab);
+            Demo d = new Demo(lab, this.personRepository.findByDsUsername(username), "no", 0, true);
+            this.demoRepo.save(d);
+        }
     }
 
 }

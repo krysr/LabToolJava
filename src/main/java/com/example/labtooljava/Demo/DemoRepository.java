@@ -17,6 +17,8 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
     List<Demo> findAllByPerson_DsUsername(String username);
 
+    List<Demo> findAllByPerson_EmailAndLab_LabId(String email, int id);
+
     List<Demo> findAllByInstructorAndPerson_DsUsername(boolean instructor, String username);
 
 //    List<Demo> findAllByDemo(boolean demo);
