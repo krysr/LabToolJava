@@ -56,13 +56,13 @@ public class LabController {
     //@ResponseBody
     public List<Demo> addStudentDemo(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
         int pos;
-        boolean alreadySet = demoRepo.getDemo(lab.getLabId(), username);
-        if(!alreadySet) {
+        String alreadySet = demoRepo.getDemo(lab.getLabId(), username);
+        if(!alreadySet.equals("yes")) {
             demoRepo.setDemo("yes", lab.getLabId(),username);
             if(demoRepo.getMaxPos() > 0) {
                 pos = demoRepo.getMaxPos() + 1;
                 demoRepo.setPos(lab.getLabId(),username, pos);
-            } else {
+            } else {demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live"));
                 pos = 1;
             }
             demoRepo.setPos(lab.getLabId(),username, pos);

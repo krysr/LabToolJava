@@ -70,21 +70,9 @@ public class PersonController {
         return personRepository.findByDsUsername(username);
     }
 
-//        @GetMapping("/student")
-//    public List<Person> getStudents(@RequestHeader HttpHeaders req) {
-//        List<Person> students;
-//        List<Person> demonstrators;
-//        students = personRepository.findAllByRole("student");
-//        demonstrators = personRepository.findAllByRole("demonstrator");
-//        return Stream.concat(students.stream(), demonstrators.stream()).collect(Collectors.toList());
-//    }
+    @GetMapping("/user/{username}")
+    public Person getStudentName(@PathVariable() String username) {
+        return personRepository.findByDsUsername(username);
+    }
 
-//
-//    @GetMapping("/token")
-//    @ResponseBody
-//    //@CrossOrigin(origins = "*",  allowedHeaders = { "x-auth-token", "x-requested-with", "x-xsrf-token" })
-//    public Map<String, String> token(HttpSession session) {
-//        return Collections.singletonMap("token", session.getId());
-//    }
 }
-//String decodedString = new String(base64.decode(encodedString.getBytes()));

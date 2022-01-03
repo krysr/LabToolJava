@@ -38,7 +38,7 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
 //    List<Demo> findByReviewId(@Param("person_id_fk") String person_id_fk);
 
     @Query(value = "select pl.demo from Demo pl where pl.lab.labId = ?1 and pl.person.dsUsername = ?2")
-    boolean getDemo(int lab_id_fk, String person_id_fk);
+    String getDemo(int lab_id_fk, String person_id_fk);
 
     @Modifying
     @Transactional
