@@ -2,26 +2,10 @@ package com.example.labtooljava.Person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.nio.charset.StandardCharsets;
-import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-//@RestController
-//@CrossOrigin(origins = "http://localhost:4200")
-//public class PersonController {
-//    public String getUser(HttpServletRequest request) {
-//        Principal principal = request.getUserPrincipal();
-//        return principal.getName();
-//    }
-//}
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class PersonController {
@@ -30,7 +14,6 @@ public class PersonController {
     PersonService personService;
 
     private final PersonRepository personRepository;
-    //private final LoginImpl li = new LoginImpl();
 
     public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -39,7 +22,6 @@ public class PersonController {
 
     @PostMapping("/")
     @ResponseBody
-//    public boolean validateLogin(HttpServletRequest req) {
     public Person validateLogin(@RequestHeader HttpHeaders req) {
         System.out.println("headers: " + req.getFirst(HttpHeaders.AUTHORIZATION));
         String username = "";
@@ -54,14 +36,9 @@ public class PersonController {
         if (personRepository.findByDsUsername(username) != null) {
             encryptedPassword = personRepository.findByDsUsername(username).getPassword();
             if (personService.doPasswordsMatch(password, encryptedPassword)) {
-                // return personRepository.findByDsUsername(username).getFirstName();
-                //return true;
-                // role = personRepository.findByDsUsername(username).getRole();
                 return personRepository.findByDsUsername(username);
             }
         }
-        //return personRepository.findByDsUsername(person).getFirstName();
-        //return false;
         return null;
     }
 
@@ -74,5 +51,4 @@ public class PersonController {
     public Person getStudentName(@PathVariable() String username) {
         return personRepository.findByDsUsername(username);
     }
-
 }

@@ -1,6 +1,5 @@
 package com.example.labtooljava.Grade;
 
-import com.example.labtooljava.Demo.Demo;
 import com.example.labtooljava.Demo.DemoRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;

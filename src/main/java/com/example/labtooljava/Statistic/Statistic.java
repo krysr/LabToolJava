@@ -1,11 +1,9 @@
 package com.example.labtooljava.Statistic;
 
 import com.example.labtooljava.Demo.Demo;
-import com.example.labtooljava.Lab.Lab;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 
 @Entity

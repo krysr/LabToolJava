@@ -1,7 +1,5 @@
 package com.example.labtooljava.LabClass;
 
-import com.example.labtooljava.Demo.Demo;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,15 +13,11 @@ public class LabClass implements Serializable {
     @Column(name = "class_name")
     private String className;
 
-//    @OneToMany(fetch = FetchType.EAGER,mappedBy="labclass",cascade = CascadeType.ALL)
-//    private Set<Lab> labs;
-
     protected LabClass() {}
 
     public LabClass(String classId, String className) {
         this.classId = classId;
         this.className = className;
-       // this.labs = labs;
     }
 
     public void setClassId(String classId) {
@@ -42,11 +36,4 @@ public class LabClass implements Serializable {
         return className;
     }
 
-//    public Set<Lab> getLabs() {
-//        return labs;
-//    }
-//
-//    public void setLabs(Set<Lab> labs) {
-//        this.labs = labs;
-//    }
 }

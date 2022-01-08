@@ -1,7 +1,6 @@
 package com.example.labtooljava.Lab;
 
 import com.example.labtooljava.LabClass.LabClass;
-import com.example.labtooljava.Demo.Demo;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,18 +15,12 @@ public class Lab implements Serializable {
     private int labId;
     @Column(name = "lab_day")
     private String labDay;
-//    @Column(name = "class_id_fk")
-//    private String classId;
     @Column(name = "start_time")
     private int startTime;
     @Column(name = "end_time")
     private int endTime;
     @Column(name = "room")
     private String room;
-
-//    @OneToMany(fetch = FetchType.EAGER,mappedBy="lab",cascade = CascadeType.ALL)
-//    private Set<Demo> personlabs;
-
 
     @ManyToOne
     @JoinColumn(name = "class_id_fk", referencedColumnName = "class_id")

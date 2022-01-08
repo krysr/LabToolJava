@@ -1,7 +1,5 @@
 package com.example.labtooljava.Person;
 
-import com.example.labtooljava.Demo.Demo;
-
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -23,9 +21,6 @@ public class Person implements Serializable {
     @Column(name = "user_password")
     private String password;
 
-//    @OneToMany(targetEntity = Demo.class, fetch = FetchType.EAGER,mappedBy="person",cascade = CascadeType.ALL)
-//    private Set<Demo> personLabs;
-
     protected Person() {}
 
     public Person(String userId, String firstName, String lastName, String email, String role, String password) {
@@ -35,7 +30,6 @@ public class Person implements Serializable {
         this.email = email;
         this.role = role;
         this.password = password;
-        //this.personLabs = personLabs;
     }
 
     public void setDsUsername() {
@@ -81,18 +75,9 @@ public class Person implements Serializable {
     public void setPassword() { password = password; }
 
     public String getPassword() { return password; }
-//
-//    public Set<Demo> getPersonLab() {
-//        return personLabs;
-//    }
-//
-//    public void setPersonLab(Set<Demo> personLabs) {
-//        this.personLabs = personLabs;
-//    }
 
     @Override
     public String toString() {
         return dsUsername;
     }
-
 }

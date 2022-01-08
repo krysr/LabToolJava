@@ -10,32 +10,11 @@ import java.util.List;
 
 @Repository
 public interface DemoRepository extends JpaRepository<Demo, Integer> {
-     //List<Lab> findAllBy
-        //List<Demo> findAll();
 
     List<Demo> findAll();
-
-    List<Demo> findAllByPerson_DsUsername(String username);
-
     List<Demo> findAllByPerson_EmailAndLab_LabId(String email, int id);
-
     List<Demo> findAllByInstructorAndPerson_DsUsername(boolean instructor, String username);
-
-//    List<Demo> findAllByDemo(boolean demo);
-
-    List<Demo> findAllByLab_LabIdAndDemoOrderByPositionAsc(int id, String demo);
-
     List<Demo> findAllByLab_LabIdAndDemoInOrderByPositionAsc(int id, List<String> demo);
-
-    Demo findDemoByDemoId(int demoId);
-
-//    @Modifying
-//    @Transactional
-//    @Query(value = "update Demo pl set pl.demo = true where pl.lab.labId =: lab_id_fk and pl.person.dsUsername =: person_id_fk")
-//    void setDemo(@Param("lab_id_fk") int lab_id_fk, @Param("person_id_fk") String person_id_fk);
-
-//    @Query("from Demo lp inner join fetch lp.lab_id_fk where lp.person_id_fk = :person_id_fk")
-//    List<Demo> findByReviewId(@Param("person_id_fk") String person_id_fk);
 
     @Query(value = "select pl.demo from Demo pl where pl.lab.labId = ?1 and pl.person.dsUsername = ?2")
     String getDemo(int lab_id_fk, String person_id_fk);
@@ -47,7 +26,6 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
     @Query(value = "select max(pl.position) from Demo pl")
     int getMaxPos();
-
 
     @Modifying
     @Transactional

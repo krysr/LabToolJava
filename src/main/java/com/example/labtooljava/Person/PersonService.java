@@ -12,9 +12,6 @@ public class PersonService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private PersonRepository personRepository;
-
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();

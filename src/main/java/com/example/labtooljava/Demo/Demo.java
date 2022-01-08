@@ -1,6 +1,5 @@
 package com.example.labtooljava.Demo;
 
-import com.example.labtooljava.Grade.Grade;
 import com.example.labtooljava.Lab.Lab;
 import com.example.labtooljava.Person.Person;
 
@@ -15,10 +14,6 @@ public class Demo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "demo_id", nullable = false, updatable = false)
     private int demoId;
-//    @Column(name = "lab_id_fk")
-//    private int labId;
-//    @Column(name = "person_id_fk")
-//    private String username;
 
     @Column(name = "demo")
     private String demo;
@@ -32,14 +27,10 @@ public class Demo implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "lab_id_fk", referencedColumnName = "lab_id")
     private Lab lab;
-//
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "person_id_fk", referencedColumnName = "ds_username")
     private Person person;
-
-//    @Transient
-//    @OneToOne(mappedBy = "personlab", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Grade grade;
 
     protected Demo() {}
 
@@ -59,15 +50,6 @@ public class Demo implements Serializable {
     public void setdemoId(int demoId) {
         this.demoId = demoId;
     }
-
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-
 
     public Person getPerson() {
         return person;
@@ -109,11 +91,4 @@ public class Demo implements Serializable {
         this.instructor = instructor;
     }
 
-    //    public Grade getGrade() {
-//        return grade;
-//    }
-//
-//    public void setGrade(Grade grade) {
-//        this.grade = grade;
-//    }
 }
