@@ -24,6 +24,9 @@ public class Demo implements Serializable {
     @Column(name = "instructor")
     private boolean instructor;
 
+    @Column(name = "seat")
+    private int seat;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "lab_id_fk", referencedColumnName = "lab_id")
     private Lab lab;
@@ -34,12 +37,13 @@ public class Demo implements Serializable {
 
     protected Demo() {}
 
-    public Demo(Lab lab, Person person, String demo, int position, boolean instructor) {
+    public Demo(Lab lab, Person person, String demo, int position, boolean instructor, int seat) {
         this.lab = lab;
         this.person = person;
         this.demo = demo;
         this.position = position;
         this.instructor = instructor;
+        this.seat = seat;
     }
 
 
@@ -91,4 +95,11 @@ public class Demo implements Serializable {
         this.instructor = instructor;
     }
 
+    public void setSeat(int seat) {
+        this.seat = seat;
+    }
+
+    public int getSeat() {
+        return seat;
+    }
 }

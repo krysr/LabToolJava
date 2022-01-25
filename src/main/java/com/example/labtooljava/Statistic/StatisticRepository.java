@@ -1,7 +1,6 @@
 package com.example.labtooljava.Statistic;
 
 import com.example.labtooljava.Demo.Demo;
-import com.example.labtooljava.Lab.Lab;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,8 +12,6 @@ import java.util.List;
 public interface StatisticRepository extends JpaRepository<Statistic, Integer> {
 
     List<Statistic> findAllByDemo(Demo demo);
-
-//    List<Statistic> findAll();
 
     @Modifying
     @Transactional

@@ -15,8 +15,9 @@ public class PersonController {
 
     private final PersonRepository personRepository;
 
-    public PersonController(PersonRepository personRepository) {
+    public PersonController(PersonRepository personRepository, PersonService personService) {
         this.personRepository = personRepository;
+        this.personService = personService;
     }
 
 

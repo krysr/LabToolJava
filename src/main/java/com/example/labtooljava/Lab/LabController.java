@@ -72,12 +72,13 @@ public class LabController {
     @PostMapping("/lab/list/{labId}")
     public void addStudentLab(@RequestBody() String result[], @PathVariable() int labId, @RequestHeader HttpHeaders req) {
         String email;
+        int seat = demoRepo.getMaxSeat(labId);
         int size = result.length;
         for (int i = 0; i<size; i++) {
             email = result[i].toLowerCase();
             Person p = this.personRepository.findByEmail(email);
             if (p != null && demoRepo.findAllByPerson_EmailAndLab_LabId(email, labId) == null) {
-                Demo d = new Demo(labRepository.findByLabId(labId), p, "no", 0, false);
+                Demo d = new Demo(labRepository.findByLabId(labId), p, "no", 0, false, seat+1);
                 this.demoRepo.save(d);
             }
         }
@@ -86,7 +87,7 @@ public class LabController {
     @PostMapping("/lab/assign/{email}/{type}")
     public void assignToLab(@RequestBody Lab lab, @PathVariable() String email, @PathVariable() String type, @RequestHeader HttpHeaders req) {
         boolean isInstructor = type.equals("demonstrator");
-        Demo d = new Demo(lab, this.personRepository.findByEmail(email), "no", 0, isInstructor);
+        Demo d = new Demo(lab, this.personRepository.findByEmail(email), "no", 0, isInstructor, 0);
         if (this.demoRepo.findAllByPerson_EmailAndLab_LabId(email, lab.getLabId()).size() == 0) {
             this.demoRepo.save(d);
         }
@@ -96,7 +97,7 @@ public class LabController {
     public void addNewLab(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
         if(this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(lab.getLabClass().getClassId(), lab.getlabDay(), lab.getstartTime()) == null) {
             this.labRepository.save(lab);
-            Demo d = new Demo(lab, this.personRepository.findByDsUsername(username), "no", 0, true);
+            Demo d = new Demo(lab, this.personRepository.findByDsUsername(username), "no", 0, true, 0);
             this.demoRepo.save(d);
         }
     }

@@ -24,7 +24,7 @@ public class Grade implements Serializable {
     @JoinColumn(name = "demo_id", referencedColumnName = "demo_id")
     private Demo demo;
 
-    protected Grade() {}
+    public Grade() {}
 
     public Grade(int gradeId, String gradeComment, float grade, Date gradeDate, Demo demo) {
         this.gradeId = gradeId;

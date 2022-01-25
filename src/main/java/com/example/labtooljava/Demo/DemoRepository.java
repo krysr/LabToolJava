@@ -11,10 +11,11 @@ import java.util.List;
 @Repository
 public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
-    List<Demo> findAll();
+//    List<Demo> findAll();
     List<Demo> findAllByPerson_EmailAndLab_LabId(String email, int id);
     List<Demo> findAllByInstructorAndPerson_DsUsername(boolean instructor, String username);
     List<Demo> findAllByLab_LabIdAndDemoInOrderByPositionAsc(int id, List<String> demo);
+    Demo findDemoByPerson_DsUsernameAndLab_LabId(String username, int labId);
 
     @Query(value = "select pl.demo from Demo pl where pl.lab.labId = ?1 and pl.person.dsUsername = ?2")
     String getDemo(int lab_id_fk, String person_id_fk);
@@ -26,6 +27,9 @@ public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
     @Query(value = "select max(pl.position) from Demo pl")
     int getMaxPos();
+
+    @Query(value = "select max(pl.seat) from Demo pl where pl.lab.labId = ?1")
+    int getMaxSeat(int lab_id);
 
     @Modifying
     @Transactional

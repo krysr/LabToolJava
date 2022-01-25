@@ -29,7 +29,7 @@ public class StatisticController {
     }
 
     @PostMapping("/stats/{role}")
-    public List<Statistic> saveStats(@RequestBody Statistic stat, @PathVariable() String role, @RequestHeader HttpHeaders req) {
+    public List<Statistic> saveStats(@RequestBody Statistic stat, @PathVariable() String role) {
         if (role.equals("student")) {
             this.statRepository.save(stat);
         } else {
