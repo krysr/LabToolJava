@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface DemoRepository extends JpaRepository<Demo, Integer> {
 
-//    List<Demo> findAll();
     List<Demo> findAllByPerson_EmailAndLab_LabId(String email, int id);
     List<Demo> findAllByInstructorAndPerson_DsUsername(boolean instructor, String username);
     List<Demo> findAllByLab_LabIdAndDemoInOrderByPositionAsc(int id, List<String> demo);

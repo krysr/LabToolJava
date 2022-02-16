@@ -3,7 +3,6 @@ package com.example.labtooljava.Statistic;
 import com.example.labtooljava.Demo.DemoRepository;
 import com.example.labtooljava.Lab.LabRepository;
 import com.example.labtooljava.Person.PersonRepository;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -40,7 +39,6 @@ public class StatisticController {
 
     @GetMapping("/stats/")
     public List<Statistic> getStats() {
-
         return this.statRepository.findAll();
     }
 }

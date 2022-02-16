@@ -1,6 +1,5 @@
 package com.example.labtooljava;
 
-import com.example.labtooljava.Grade.Grade;
 import com.example.labtooljava.Person.Person;
 import com.example.labtooljava.Person.PersonController;
 import com.example.labtooljava.Person.PersonRepository;

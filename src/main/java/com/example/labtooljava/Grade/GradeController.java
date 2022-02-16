@@ -10,7 +10,6 @@ import java.util.List;
 public class GradeController {
 
     private final DemoRepository demoRepo;
-
     private final GradeRepository gradeRepo;
 
     public GradeController(DemoRepository demoRepo, GradeRepository gradeRepo) {
@@ -20,7 +19,6 @@ public class GradeController {
 
     @PostMapping("/grade/student/")
     public void setGrade(@RequestBody Grade grade) {
-
         this.gradeRepo.save(grade);
         this.demoRepo.setDemo("done", grade.getDemo().getLab().getLabId(), grade.getDemo().getPerson().getDsUsername());
         this.demoRepo.setPos(grade.getDemo().getLab().getLabId(), grade.getDemo().getPerson().getDsUsername(), 0);
@@ -29,7 +27,6 @@ public class GradeController {
 
     @GetMapping("/grade/student/{username}/{labid}")
     public List<Grade> getGrade(@PathVariable() String username, @PathVariable() int labid) {
-
         return this.gradeRepo.findAllByDemo_DemoId(this.demoRepo.findDemoByPerson_DsUsernameAndLab_LabId(username, labid).getdemoId());
     }
 }

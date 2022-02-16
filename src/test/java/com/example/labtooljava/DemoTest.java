@@ -23,10 +23,6 @@ public class DemoTest {
     @Mock
     DemoRepository demoRepository;
 
-    //    @Before
-//    public void init() {
-//        MockitoAnnotations.initMocks(this);
-//    }
     @Rule //initMocks
     public MockitoRule rule = MockitoJUnit.rule();
 

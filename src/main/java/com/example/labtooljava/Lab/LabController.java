@@ -4,7 +4,6 @@ import com.example.labtooljava.Demo.Demo;
 import com.example.labtooljava.Demo.DemoRepository;
 import com.example.labtooljava.Person.Person;
 import com.example.labtooljava.Person.PersonRepository;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -41,7 +40,7 @@ public class LabController {
     }
 
     @PostMapping("/lab/demonstrate/{username}")
-    public List<Demo> addStudentDemo(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
+    public List<Demo> addStudentDemo(@RequestBody Lab lab, @PathVariable() String username) {
         int pos;
         String alreadySet = demoRepo.getDemo(lab.getLabId(), username);
         if(!alreadySet.equals("yes")) {
@@ -59,18 +58,18 @@ public class LabController {
 
     @PostMapping("/lab/demonstrate/")
     @ResponseBody
-    public List<Demo> getQueue(@RequestBody Lab lab, @RequestHeader HttpHeaders req) {
+    public List<Demo> getQueue(@RequestBody Lab lab) {
         return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live", "done"));
     }
 
     @PostMapping("/lab/demonstrate/end/{username}")
-    public List<Demo> removeStudentDemo(@RequestBody Demo demo, @PathVariable() String username, @RequestHeader HttpHeaders req) {
+    public List<Demo> removeStudentDemo(@RequestBody Demo demo, @PathVariable() String username) {
         demoRepo.setDemo(demo.getDemo(), demo.getLab().getLabId(),demo.getPerson().getDsUsername());
         return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(demo.getLab().getLabId(), Arrays.asList("yes", "live"));
     }
 
     @PostMapping("/lab/list/{labId}")
-    public void addStudentLab(@RequestBody() String result[], @PathVariable() int labId, @RequestHeader HttpHeaders req) {
+    public void addStudentLab(@RequestBody() String result[], @PathVariable() int labId) {
         String email;
         int seat = demoRepo.getMaxSeat(labId);
         int size = result.length;
@@ -85,7 +84,7 @@ public class LabController {
     }
 
     @PostMapping("/lab/assign/{email}/{type}")
-    public void assignToLab(@RequestBody Lab lab, @PathVariable() String email, @PathVariable() String type, @RequestHeader HttpHeaders req) {
+    public void assignToLab(@RequestBody Lab lab, @PathVariable() String email, @PathVariable() String type) {
         boolean isInstructor = type.equals("demonstrator");
         Demo d = new Demo(lab, this.personRepository.findByEmail(email), "no", 0, isInstructor, 0);
         if (this.demoRepo.findAllByPerson_EmailAndLab_LabId(email, lab.getLabId()).size() == 0) {
@@ -94,7 +93,7 @@ public class LabController {
     }
 
     @PostMapping("/lab/add/{username}")
-    public void addNewLab(@RequestBody Lab lab, @PathVariable() String username, @RequestHeader HttpHeaders req) {
+    public void addNewLab(@RequestBody Lab lab, @PathVariable() String username) {
         if(this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(lab.getLabClass().getClassId(), lab.getlabDay(), lab.getstartTime()) == null) {
             this.labRepository.save(lab);
             Demo d = new Demo(lab, this.personRepository.findByDsUsername(username), "no", 0, true, 0);
