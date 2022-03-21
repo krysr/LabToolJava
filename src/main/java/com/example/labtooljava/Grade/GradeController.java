@@ -29,4 +29,9 @@ public class GradeController {
     public List<Grade> getGrade(@PathVariable() String username, @PathVariable() int labid) {
         return this.gradeRepo.findAllByDemo_DemoId(this.demoRepo.findDemoByPerson_DsUsernameAndLab_LabId(username, labid).getdemoId());
     }
+
+    @GetMapping("/grade/gradeslist")
+    public List<Grade> getAllGrades() {
+        return this.gradeRepo.findAll();
+    }
 }

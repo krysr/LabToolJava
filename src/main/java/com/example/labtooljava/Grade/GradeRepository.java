@@ -9,4 +9,6 @@ import java.util.List;
 public interface GradeRepository extends JpaRepository<Grade, Integer> {
 
     List<Grade> findAllByDemo_DemoId(int demoId);
+    List<Grade> findAll();
+
 }
