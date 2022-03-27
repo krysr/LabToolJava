@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,7 +35,7 @@ public class LabClassTest {
     @InjectMocks
     LabClassController labClassController;
 
-    @Rule //initMocks
+    @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Before
@@ -56,16 +55,16 @@ public class LabClassTest {
     @Test
     public void addClass() throws Exception {
         LabClass class1 = new LabClass("CS407", "test class");
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper om = new ObjectMapper();
 
         when(labClassRepository.countAllByClassId(anyString())).thenReturn(0);
 
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(class1);
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(class1);
         mvc.perform(post("/class/add")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(requestJson))
+                        .content(json))
                 .andExpect(status().isOk());
     }
 }

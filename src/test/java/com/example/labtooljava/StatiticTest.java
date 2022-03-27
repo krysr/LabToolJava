@@ -43,7 +43,7 @@ public class StatiticTest {
     @InjectMocks
     StatisticController statisticController;
 
-    @Rule //initMocks
+    @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Before
@@ -58,8 +58,8 @@ public class StatiticTest {
     Demo demo1 = new Demo(lab1, p1, "no", 0, false, 25);
 
     List<Statistic> userStats = new ArrayList<>();
-    Statistic s1 = new Statistic(demo1, new Date(), 1000, new Date(), new Date(), new Date());
-    Statistic s2 = new Statistic(demo1, new Date(), 1000, new Date(), new Date(), new Date());
+    Statistic s1 = new Statistic(demo1, new Date(), new Date(), new Date(), new Date());
+    Statistic s2 = new Statistic(demo1, new Date(), new Date(), new Date(), new Date());
 
 
     @Test
@@ -71,8 +71,8 @@ public class StatiticTest {
         Demo demo1 = new Demo(lab1, p1, "no", 0, false, 25);
 
         List<Statistic> userStats = new ArrayList<>();
-        Statistic s1 = new Statistic(demo1, new Date(), 1000, new Date(), new Date(), new Date());
-        Statistic s2 = new Statistic(demo1, new Date(), 1000, new Date(), new Date(), new Date());
+        Statistic s1 = new Statistic(demo1, new Date(), new Date(), new Date(), new Date());
+        Statistic s2 = new Statistic(demo1, new Date(), new Date(), new Date(), new Date());
 
         userStats.add(s1);
         userStats.add(s2);

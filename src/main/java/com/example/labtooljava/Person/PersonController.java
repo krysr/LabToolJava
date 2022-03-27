@@ -21,6 +21,7 @@ public class PersonController {
     }
 
 
+    /** Checks login details **/
     @PostMapping("/")
     @ResponseBody
     public Person validateLogin(@RequestHeader HttpHeaders req) {
@@ -36,18 +37,20 @@ public class PersonController {
         String encryptedPassword;
         if (personRepository.findByDsUsername(username) != null) {
             encryptedPassword = personRepository.findByDsUsername(username).getPassword();
-            if (personService.doPasswordsMatch(password, encryptedPassword)) {
+            if (personService.passwordMatch(password, encryptedPassword)) {
                 return personRepository.findByDsUsername(username);
             }
         }
         return null;
     }
 
+    /** Returns student's details **/
     @GetMapping("/student/{username}")
     public Person getStudent(@PathVariable() String username) {
         return personRepository.findByDsUsername(username);
     }
 
+    /** Returns student's name **/
     @GetMapping("/user/{username}")
     public Person getStudentName(@PathVariable() String username) {
         return personRepository.findByDsUsername(username);

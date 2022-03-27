@@ -27,16 +27,18 @@ public class StatisticController {
         this.statRepository = statRepository;
     }
 
+    /** Save student's stats **/
     @PostMapping("/stats/{role}")
     public List<Statistic> saveStats(@RequestBody Statistic stat, @PathVariable() String role) {
         if (role.equals("student")) {
             this.statRepository.save(stat);
         } else {
-            this.statRepository.updateStats(stat.getDemoStartTime(), stat.getDemoEndTime(), stat.getWaitingTime(), stat.getDemo().getdemoId(), stat.getDate(), new Date());
+            this.statRepository.updateStats(stat.getDemoStartTime(), stat.getDemoEndTime(), stat.getDemo().getdemoId(), stat.getDate(), new Date());
         }
         return this.statRepository.findAllByDemo(stat.getDemo());
     }
 
+    /** Returns all stats **/
     @GetMapping("/stats/")
     public List<Statistic> getStats() {
         return this.statRepository.findAll();

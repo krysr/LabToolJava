@@ -24,6 +24,7 @@ public class LabController {
         this.personRepository = personRepository;
     }
 
+    /** Returns a list of labs for a student **/
     @GetMapping("/lab/{username}")
     @ResponseBody
     public List<Lab> getLab(@PathVariable() String username, @RequestParam("role") String role) {
@@ -39,6 +40,7 @@ public class LabController {
         return userLabs;
     }
 
+    /** Adding students to queue by changing status and position from database **/
     @PostMapping("/lab/demonstrate/{username}")
     public List<Demo> addStudentDemo(@RequestBody Lab lab, @PathVariable() String username) {
         int pos;
@@ -56,18 +58,21 @@ public class LabController {
         return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live"));
     }
 
+    /** Returns all students in the queue **/
     @PostMapping("/lab/demonstrate/")
     @ResponseBody
     public List<Demo> getQueue(@RequestBody Lab lab) {
         return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(lab.getLabId(), Arrays.asList("yes", "live", "done"));
     }
 
+    /** Removes student from queue by updating status **/
     @PostMapping("/lab/demonstrate/end/{username}")
     public List<Demo> removeStudentDemo(@RequestBody Demo demo, @PathVariable() String username) {
         demoRepo.setDemo(demo.getDemo(), demo.getLab().getLabId(),demo.getPerson().getDsUsername());
         return demoRepo.findAllByLab_LabIdAndDemoInOrderByPositionAsc(demo.getLab().getLabId(), Arrays.asList("yes", "live"));
     }
 
+    /** Adds students to a lab **/
     @PostMapping("/lab/list/{labId}")
     public void addStudentLab(@RequestBody() String result[], @PathVariable() int labId) {
         String email;
@@ -83,6 +88,7 @@ public class LabController {
         }
     }
 
+    /** Assigns demonstrator to a lab **/
     @PostMapping("/lab/assign/{email}/{type}")
     public void assignToLab(@RequestBody Lab lab, @PathVariable() String email, @PathVariable() String type) {
         boolean isInstructor = type.equals("demonstrator");
@@ -92,6 +98,7 @@ public class LabController {
         }
     }
 
+    /** Creates a new lab **/
     @PostMapping("/lab/add/{username}")
     public void addNewLab(@RequestBody Lab lab, @PathVariable() String username) {
         if(this.labRepository.findByLabClass_ClassIdAndLabDayAndStartTime(lab.getLabClass().getClassId(), lab.getlabDay(), lab.getstartTime()) == null) {

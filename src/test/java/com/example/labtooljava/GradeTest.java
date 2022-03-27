@@ -47,7 +47,7 @@ public class GradeTest {
     @InjectMocks
     GradeController gradeController;
 
-    @Rule //initMocks
+    @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Before
@@ -116,17 +116,17 @@ public class GradeTest {
         gradeList.add(testGrade2);
         when(gradeRepository.findAllByDemo_DemoId(anyInt())).thenReturn(gradeList);
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(testGrade);
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(testGrade);
 
         mvc.perform(post("/grade/student/")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(requestJson))
+                        .content(json))
                 .andExpect(status().isOk());
 
-        List<Grade> userGrades = gradeRepository.findAllByDemo_DemoId(4);
+        List<Grade> userGrades = gradeRepository.findAllByDemo_DemoId(anyInt());
         assertEquals(userGrades, gradeList);
     }
 }

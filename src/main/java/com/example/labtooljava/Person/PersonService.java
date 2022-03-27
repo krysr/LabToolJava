@@ -17,8 +17,9 @@ public class PersonService {
         return new BCryptPasswordEncoder();
     }
 
-    public Boolean doPasswordsMatch(String rawPassword,String encodedPassword) {
-        return passwordEncoder.matches(rawPassword, encodedPassword);
+    /** Checking passwords macth with source help from Jonas, https://stackoverflow.com/questions/26811885/getting-same-hashed-value-while-using-bcryptpasswordencoder **/
+    public Boolean passwordMatch(String pw,String encodedPassword) {
+        return passwordEncoder.matches(pw, encodedPassword);
     }
 
 }

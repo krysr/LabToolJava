@@ -23,7 +23,7 @@ public class DemoTest {
     @Mock
     DemoRepository demoRepository;
 
-    @Rule //initMocks
+    @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     LabClass class1 = new LabClass("CS407", "test class");

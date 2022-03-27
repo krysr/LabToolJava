@@ -49,7 +49,7 @@ public class LabTest {
     @InjectMocks
     LabController labController;
 
-    @Rule //initMocks
+    @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Before
@@ -109,17 +109,16 @@ public class LabTest {
         demoTest.add(demo2);
         when(demoRepository.getDemo(anyInt(), anyString())).thenReturn("no");
         when(demoRepository.getMaxPos()).thenReturn(3);
-
-       // String[] emails = {"test1@emaio.com", "test2@email.com"};
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(lab1);
+        
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(lab1);
 
         when(demoRepository.findAllByLab_LabIdAndDemoInOrderByPositionAsc(anyInt(), anyList())).thenReturn(demoTest);
         mvc.perform(post("/lab/demonstrate/{username}", "testID")
                 .contentType(APPLICATION_JSON_UTF8)
-                        .content(String.valueOf(requestJson)))
+                        .content(String.valueOf(json)))
                 .andExpect(status().isOk());
 
     }
@@ -130,25 +129,25 @@ public class LabTest {
         demoTest.add(demo1);
         demoTest.add(demo2);
         when(demoRepository.findAllByLab_LabIdAndDemoInOrderByPositionAsc(anyInt(), anyList())).thenReturn(demoTest);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(lab1);
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(lab1);
         mvc.perform(post("/lab/demonstrate/")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(String.valueOf(requestJson)))
+                        .content(String.valueOf(json)))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void RemoveStudentPostReq() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(demo1);
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(demo1);
         mvc.perform(post("/lab/demonstrate/end/{username}", "testID")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(String.valueOf(requestJson)))
+                        .content(String.valueOf(json)))
                 .andExpect(status().isOk());
     }
 
@@ -156,39 +155,39 @@ public class LabTest {
     public void addStudentLabTest() throws Exception {
         String emailTest[] = {"email1@test"};
         when(personRepository.findByEmail(anyString())).thenReturn(p1);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(emailTest);
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(emailTest);
         mvc.perform(post("/lab/list/{labId}", 2)
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(String.valueOf(requestJson)))
+                        .content(String.valueOf(json)))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void assignToLabTest() throws Exception {
         when(personRepository.findByEmail(anyString())).thenReturn(p1);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(lab1);
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(lab1);
         mvc.perform(post("/lab/assign/{email}/{type}", "email@test", "demonstrator")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(String.valueOf(requestJson)))
+                        .content(String.valueOf(json)))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void addNewLabTest() throws Exception {
         when(personRepository.findByEmail(anyString())).thenReturn(p1);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(lab1);
+        ObjectMapper om = new ObjectMapper();
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = om.writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(lab1);
         mvc.perform(post("/lab/add/{username}", "testID")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(String.valueOf(requestJson)))
+                        .content(String.valueOf(json)))
                 .andExpect(status().isOk());
     }
 

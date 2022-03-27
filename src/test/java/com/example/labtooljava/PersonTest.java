@@ -37,7 +37,7 @@ public class PersonTest {
     @InjectMocks
     PersonController personController;
 
-    @Rule //initMocks
+    @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Before
@@ -86,7 +86,7 @@ public class PersonTest {
     @Test
     public void loginTest() throws Exception {
         String auth = "Basic dmJnNDU5NjM6bGVjdHVyZXIx";
-        when(personService.doPasswordsMatch(anyString(), anyString())).thenReturn(Boolean.TRUE);
+        when(personService.passwordMatch(anyString(), anyString())).thenReturn(Boolean.TRUE);
         when(personRepository.findByDsUsername(anyString())).thenReturn(p4);
 
         mvc.perform(post("/")

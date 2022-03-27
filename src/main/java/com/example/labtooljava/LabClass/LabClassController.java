@@ -12,6 +12,7 @@ public class LabClassController {
         this.labClassRepository = labClassRepository;
     }
 
+    /** Adds new class **/
     @PostMapping("/class/add")
     public void addNewClass(@RequestBody LabClass labclass) {
         if(this.labClassRepository.countAllByClassId(labclass.getClassId()) == 0) {

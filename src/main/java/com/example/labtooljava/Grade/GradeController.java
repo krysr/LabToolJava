@@ -17,6 +17,7 @@ public class GradeController {
         this.gradeRepo = gradeRepo;
     }
 
+    /** Persist student's grade to database **/
     @PostMapping("/grade/student/")
     public void setGrade(@RequestBody Grade grade) {
         this.gradeRepo.save(grade);
@@ -24,12 +25,13 @@ public class GradeController {
         this.demoRepo.setPos(grade.getDemo().getLab().getLabId(), grade.getDemo().getPerson().getDsUsername(), 0);
 
     }
-
+    /** Returns a list of a student's grades for a lab **/
     @GetMapping("/grade/student/{username}/{labid}")
     public List<Grade> getGrade(@PathVariable() String username, @PathVariable() int labid) {
         return this.gradeRepo.findAllByDemo_DemoId(this.demoRepo.findDemoByPerson_DsUsernameAndLab_LabId(username, labid).getdemoId());
     }
 
+    /** Returns all grades from all students from all labs **/
     @GetMapping("/grade/gradeslist")
     public List<Grade> getAllGrades() {
         return this.gradeRepo.findAll();

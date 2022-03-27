@@ -18,9 +18,6 @@ public class Statistic implements Serializable {
     @Column(name = "join_time", columnDefinition = "DATE")
     private Date joinTime;
 
-    @Column(name = "waiting_time")
-    private long waitingTime;
-
     @Column(name = "demo_start_time", columnDefinition = "DATE")
     private Date demoStartTime;
 
@@ -37,10 +34,9 @@ public class Statistic implements Serializable {
     protected Statistic() {
     }
 
-    public Statistic(Demo demo, Date joinTime,  long waitingTime, Date demoStartTime, Date demoEndTime, Date date) {
+    public Statistic(Demo demo, Date joinTime,  Date demoStartTime, Date demoEndTime, Date date) {
         this.demo = demo;
         this.joinTime = joinTime;
-        this.waitingTime = waitingTime;
         this.demoStartTime = demoStartTime;
         this.demoEndTime = demoEndTime;
         this.date = date;
@@ -60,14 +56,6 @@ public class Statistic implements Serializable {
 
     public void setJoinTime(Date joinTime) {
         this.joinTime = joinTime;
-    }
-
-    public void setWaitingTime(int waitingTime) {
-        this.waitingTime = waitingTime;
-    }
-
-    public long getWaitingTime() {
-        return waitingTime;
     }
 
     public void setDemoStartTime(Date demoStartTime) {

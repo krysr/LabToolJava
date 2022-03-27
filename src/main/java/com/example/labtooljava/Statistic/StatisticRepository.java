@@ -15,6 +15,6 @@ public interface StatisticRepository extends JpaRepository<Statistic, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "update Statistic st set st.demoStartTime = ?1, st.demoEndTime = ?2, st.waitingTime = ?3 where st.demo.demoId = ?4 and st.date >= ?5 and st.date <= ?6")
-    void updateStats(Date startTime, Date endTime, long waitingTime, int demoId, Date date, Date today);
+    @Query(value = "update Statistic st set st.demoStartTime = ?1, st.demoEndTime = ?2 where st.demo.demoId = ?3 and st.date >= ?4 and st.date <= ?5")
+    void updateStats(Date startTime, Date endTime, int demoId, Date date, Date today);
 }
